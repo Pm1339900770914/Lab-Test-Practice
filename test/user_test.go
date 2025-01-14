@@ -106,5 +106,23 @@ func TestStudent(t *testing.T){
 		g.Expect(err).NotTo(BeNil())
 		g.Expect(err.Error()).To(Equal("StudentID is invalid"))
 	})
+
+	t.Run("Student is required", func(t *testing.T) {
+		user := entity.User{
+			StudentID: "",
+			Username: "test",
+			Password: "test123",
+			Email: "email@gmail.com",
+			Phone: "0123456789",
+			GenderID: 1,
+		}
+
+		ok, err := govalidator.ValidateStruct(user)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).NotTo(BeNil())
+		g.Expect(err.Error()).To(Equal("StudentID is required"))
+
+	})
 }
 
